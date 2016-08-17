@@ -1,4 +1,5 @@
 bidpom
+eyes-selenium
 PyPOM
 pytest==2.9.2
 pytest-selenium

@@ -10,9 +10,10 @@ from pages.home_page import CrashStatsHomePage
 class TestSuperSearch:
 
     @pytest.mark.nondestructive
-    def test_search_for_unrealistic_data(self, base_url, selenium):
+    def test_search_for_unrealistic_data(self, base_url, eyes, selenium):
         csp = CrashStatsHomePage(selenium, base_url).open()
         cs_super = csp.header.click_super_search()
+        eyes.check_window('Super Search')
         cs_super.select_facet('0', 'date')
         cs_super.select_operator('0', '>')
         cs_super.select_match('0', '2000:01:01 00-00')

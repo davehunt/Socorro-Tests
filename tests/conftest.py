@@ -9,3 +9,22 @@ import pytest
 def session_capabilities(session_capabilities):
     session_capabilities.setdefault('tags', []).append('socorro')
     return session_capabilities
+
+
+@pytest.yield_fixture
+def eyes():
+    from applitools.eyes import Eyes
+    eyes = Eyes()
+    eyes.api_key = 'foo'
+    yield eyes
+    eyes.close()
+
+
+@pytest.fixture
+def selenium(request, eyes, selenium):
+    selenium = eyes.open(
+        driver=selenium,
+        app_name='Socorro',
+        test_name=request.node.nodeid,
+        viewport_size={'width': 1024, 'height': 768})
+    return selenium
